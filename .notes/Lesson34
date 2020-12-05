@@ -1,0 +1,5 @@
+Lesson 34
+
+Information received from the post method is received by a stream of data
+and not parsed date. This lessons explains how the data is made readable 
+to the server.
