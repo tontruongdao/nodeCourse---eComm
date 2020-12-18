@@ -10,7 +10,7 @@ const app = express();
 // Registers a middleware, will parse the body passed in the form
 app.use(bodyParser.urlencoded({extended: false}));
 
-app.use(adminRoute);
+app.use("/admin", adminRoute);
 app.use(shopRoutes);
 
 app.use((req, res, next) => {
