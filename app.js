@@ -10,6 +10,8 @@ const app = express();
 
 // Registers a middleware, will parse the body passed in the form
 app.use(bodyParser.urlencoded({extended: false}));
+// This is required to serve static file, as the client is not permitted to access the other files.
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/admin", adminRoute);
 app.use(shopRoutes);
