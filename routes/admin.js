@@ -1,14 +1,15 @@
 const express = require('express')
 const path = require('path');
 
-const router = express.Router();
+const rootDir = require("../helper/path")
 
+const router = express.Router();
 
 // This is reached throught "/admin/add-product" => GET request
 router.get("/add-product", (req, res, next) => {
     // console.log("I'm another middleware");
     // res.send('<Form action="/admin/add-product" method="POST"><input type="text" name="title"><button type="submit">Add product</button></Form>');
-    res.sendFile(path.join(__dirname, "../", "views", "add-product.html"));
+    res.sendFile(path.join(rootDir, "views", "add-product.html"));
 });
 
 // This is reached throught "/admin/add-product" => POST request
