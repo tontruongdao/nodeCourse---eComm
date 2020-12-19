@@ -1,0 +1,1 @@
+Used "path" module and used "sendFile" instead of "send".
