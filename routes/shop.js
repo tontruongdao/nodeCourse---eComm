@@ -2,6 +2,7 @@ const express = require("express");
 const path = require('path');
 
 const rootDir = require("../helper/path")
+const adminData = require("./admin")
 
 const router = express.Router();
 
@@ -15,7 +16,18 @@ router.get("/", (req, res, next) => {
     // This will select the absolute path of our machine, we resolve this by importing the "path" module.
     // "__dirname" selected our root folder.
     // The join method will concatenate the different arguments, since this can we read by Linux and iOS.
-    res.sendFile(path.join(rootDir, "views", "shop.html"));
+    
+    // console.log(adminData);
+    // res.sendFile(path.join(rootDir, "views", "shop.html"));
+    const products = adminData.products;
+    res.render('shop', {
+        prods: products,
+        pageTitle: 'Shop',
+        path: '/',
+        hasProducts: products.length > 0,
+        activeShop: true,
+        productCSS: true
+      });
 });
 
 module.exports = router;
