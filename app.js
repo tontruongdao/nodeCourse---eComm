@@ -3,8 +3,10 @@ const express = require("express")
 const bodyParser = require('body-parser')
 const path = require('path')
 
-const adminData = require('./routes/admin');
-const shopRoutes = require('./routes/shop')
+const adminRoutes = require('./routes/admin');
+const shopRoutes = require('./routes/shop');
+
+const errorControllers = require('./controllers/error');
 
 const app = express();
 
@@ -16,12 +18,10 @@ app.use(bodyParser.urlencoded({extended: false}));
 // This is required to serve static file, as the client is not permitted to access the other files.
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/admin", adminData.routes);
+app.use("/admin", adminRoutes);
 app.use(shopRoutes);
 
-app.use((req, res, next) => {
-    res.status(404).render('404', { pageTitle: 'Page Not Found' });
-})
+app.use(errorControllers.get404);
 
 const server = http.createServer(app);
 
