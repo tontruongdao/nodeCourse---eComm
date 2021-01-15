@@ -33,7 +33,7 @@ module.exports = class Product {
     }
 
     // This fetches all our saved items.
-    static fetchAll() {
+    static fetchAll(cb) { // Used callback to make our code asynchronous
 
         const p = path.join(
             path.dirname(process.mainModule.filename), // Join takes 3 argument
@@ -43,9 +43,9 @@ module.exports = class Product {
 
         fs.readFile(p, (err, fileContent) => {
             if (err) {
-                return [];
+                return cb([]);
             } 
-            return JSON.parse(fileContent)
+            return cb(JSON.parse(fileContent))
         })
     }
 }

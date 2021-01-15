@@ -32,11 +32,12 @@ exports.getProducts = (req, res, next) => {
     // console.log(adminData);
     // res.sendFile(path.join(rootDir, "views", "shop.html"));
 
-    const products = Product.fetchAll();
+    const products = Product.fetchAll((products) => { // Used an anonymous function as a callback
+        res.render('shop', {
+            prods: products,
+            pageTitle: 'Shop',
+            path: '/',
+        });
+    });
 
-    res.render('shop', {
-        prods: products,
-        pageTitle: 'Shop',
-        path: '/',
-      });
 }
