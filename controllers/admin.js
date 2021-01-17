@@ -13,8 +13,14 @@ exports.postAddProduct = (req, res, next) => {
     // extracting the form
     // products.push({ title: req.body.title });
 
-    const product = new Product(req.body.title);
+    const title = req.body.title;
+    const price = req.body.price;
+    const description = req.body.description;
+    const imageUrl = req.body.imageUrl;
+
+    const product = new Product(title, imageUrl, description, price);
     product.save();
+    console.log(product)
     res.redirect("/");
 }
 
