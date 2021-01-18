@@ -29,6 +29,7 @@ module.exports = class Product {
 
     // This function reads our file in the path and adds the saved item whether it countains something or not.
     save() {
+        this.id = Math.random().toString(); // Gived a unique ID
         getProductsFromFile(products => {
             products.push(this); // This will lose this content and will not refer to the class if we do not use an arrow function
                                  // Adds content to our file
