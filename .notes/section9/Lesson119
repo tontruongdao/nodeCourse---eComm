@@ -1,0 +1,2 @@
+Added static static function to find a single item
+Added "find" method to find the item from our entire product array.

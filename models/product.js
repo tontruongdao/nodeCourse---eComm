@@ -22,9 +22,10 @@ module.exports = class Product {
     
     constructor(title, imageUrl, description, price) {
         this.title = title;
-        this.imageUrl = imageUrl;
+        this.imageUrl = "https://www.publicdomainpictures.net/pictures/10000/velka/1-1210009435EGmE.jpg";
         this.description = description;
         this.price = price;
+        // "https://www.publicdomainpictures.net/pictures/10000/velka/1-1210009435EGmE.jpg"
     }
 
     // This function reads our file in the path and adds the saved item whether it countains something or not.
@@ -48,7 +49,15 @@ module.exports = class Product {
     }
 
     // This fetches all our saved items.
+    // The purpose of the static keyword is to be able to use a member without creating an instance of the class.
     static fetchAll(cb) { // Used callback to make our code asynchronous
         getProductsFromFile(cb);
+    }
+
+    static findById(id, cb) {
+        getProductsFromFile(products =>{
+            const product = products.find(p => p.id === id);
+            cb(product);
+        })
     }
 }
