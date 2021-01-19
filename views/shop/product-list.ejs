@@ -22,10 +22,11 @@
                             <p class="product__description"><%= product.description %></p>
                         </div>
                         <div class="card__actions">
-                            <a href='/products/<%= product.id%>' class='btn'>Details</a>
-                            <form action='/add-to-cart' method='POST'>
-                                <button class="btn">Add to Cart</button>
-                            </form>
+                            <a href='/products/<%= product.id%>' class='btn'>Details</a> 
+                            <%- include('../includes/add-to-cart.ejs', {product: product})%> 
+                            <!-- As this is a for loop, we need to specify to use
+                                    the product from the loop into the "add-to-cart.ejs" component.
+                            -->
                         </div>
                     </article>
                 <% } %>
