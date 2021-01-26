@@ -1,6 +1,8 @@
 const fs = require('fs'); // Core file system package
 const path = require('path'); // Core path package 
 
+const Cart = require('./cart');
+
 const p = path.join(
     path.dirname(process.mainModule.filename), // Join takes 3 argument
     'data', // In a data folder
@@ -69,6 +71,20 @@ module.exports = class Product {
         getProductsFromFile(products =>{
             const product = products.find(p => p.id === id);
             cb(product);
+        })
+    }
+
+    static deleteById(id) {
+        getProductsFromFile(products => {
+            // We want to keep all the items that are not equal to our selected product, this is the reason
+            // we use "filter" instead of "findId"
+            const product = products.find(prod => prod.id ===id);
+            const updatedProducts = products.filter(prod => prod.id !== id );
+            fs.writeFile(p, JSON.stringify(updatedProducts), err => {
+                if (!err) {
+                    Cart.deleteProduct(id, product.price)
+                }
+            })
         })
     }
 }
