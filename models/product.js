@@ -20,7 +20,8 @@ const getProductsFromFile = (cb) => {
 
 module.exports = class Product {
     
-    constructor(title, imageUrl, description, price) {
+    constructor(id, title, imageUrl, description, price) {
+        this.id = id;
         this.title = title;
         this.imageUrl = "https://www.publicdomainpictures.net/pictures/10000/velka/1-1210009435EGmE.jpg";
         this.description = description;
@@ -30,14 +31,24 @@ module.exports = class Product {
 
     // This function reads our file in the path and adds the saved item whether it countains something or not.
     save() {
-        this.id = Math.random().toString(); // Gived a unique ID
+
         getProductsFromFile(products => {
-            products.push(this); // This will lose this content and will not refer to the class if we do not use an arrow function
-                                 // Adds content to our file
-    
-            fs.writeFile(p, JSON.stringify(products), (err) => { // Converts to JSON and updates our file
-                console.log(err)
-            }) 
+            if (this.id) {
+                const existingProductIndex = products.findIndex(prod => prod.id === this.id)
+                const updatedProducts = [...products];
+
+                updatedProducts[existingProductIndex] = this;
+                fs.writeFile(p, JSON.stringify(updatedProducts), (err) => { // Converts to JSON and updates our file
+                    console.log(err)
+                }) 
+            } else {
+                this.id = Math.random().toString(); // Gived a unique ID
+                products.push(this); // This will lose this content and will not refer to the class if we do not use an arrow function
+                // Adds content to our file
+                fs.writeFile(p, JSON.stringify(products), (err) => { // Converts to JSON and updates our file
+                    console.log(err)
+                }) 
+            }
         });
 
         // fs.readFile(p, (err, fileContent) => {
