@@ -60,6 +60,10 @@ module.exports = class Product {
             //     products = JSON.parse(fileContent); // Takes incoming JSON and convert a JS array or object
             // }
         // })
+
+        return db.execute('INSERT INTO products (title, price, imageUrl, description) VALUES (?, ?, ?, ?)',
+        [this.title, this.price, this.imageUrl, this.description]
+        );
     }
 
     // This fetches all our saved items.
