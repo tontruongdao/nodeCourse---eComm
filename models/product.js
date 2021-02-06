@@ -1,8 +1,37 @@
+const Sequelize = require('sequelize');
+
+const sequelize = require('../helper/database');
+
+const Product = sequelize.define('product', {
+    id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        allowNull: false,
+        primaryKey: true
+    },
+    title: Sequelize.STRING,
+    price: {
+        type: Sequelize.DOUBLE,
+        allowNull: false
+    },
+    imageUrl: {
+        type: Sequelize.STRING,
+        allowNull: false
+    },
+    description: {
+        type: Sequelize.STRING,
+        allowNull: false
+    }
+})
+
+module.exports = Product;
+
+
 // const fs = require('fs'); // Core file system package
 // const path = require('path'); // Core path package 
-const db = require('../helper/database')
+// const db = require('../helper/database')
 
-const Cart = require('./cart');
+// const Cart = require('./cart');
 
 // const p = path.join(
 //     path.dirname(process.mainModule.filename), // Join takes 3 argument
@@ -21,19 +50,19 @@ const Cart = require('./cart');
 //     })
 // }
 
-module.exports = class Product {
+// module.exports = class Product {
     
-    constructor(id, title, imageUrl, description, price) {
-        this.id = id;
-        this.title = title;
-        this.imageUrl = "https://www.publicdomainpictures.net/pictures/10000/velka/1-1210009435EGmE.jpg";
-        this.description = description;
-        this.price = price;
-        // "https://www.publicdomainpictures.net/pictures/10000/velka/1-1210009435EGmE.jpg"
-    }
+//     constructor(id, title, imageUrl, description, price) {
+//         this.id = id;
+//         this.title = title;
+//         this.imageUrl = "https://www.publicdomainpictures.net/pictures/10000/velka/1-1210009435EGmE.jpg";
+//         this.description = description;
+//         this.price = price;
+//         // "https://www.publicdomainpictures.net/pictures/10000/velka/1-1210009435EGmE.jpg"
+//     }
 
     // This function reads our file in the path and adds the saved item whether it countains something or not.
-    save() {
+    // save() {
 
         // getProductsFromFile(products => {
         //     if (this.id) {
@@ -61,27 +90,27 @@ module.exports = class Product {
             // }
         // })
 
-        return db.execute('INSERT INTO products (title, price, imageUrl, description) VALUES (?, ?, ?, ?)',
-        [this.title, this.price, this.imageUrl, this.description]
-        );
-    }
+    //     return db.execute('INSERT INTO products (title, price, imageUrl, description) VALUES (?, ?, ?, ?)',
+    //     [this.title, this.price, this.imageUrl, this.description]
+    //     );
+    // }
 
     // This fetches all our saved items.
     // The purpose of the static keyword is to be able to use a member without creating an instance of the class.
-    static fetchAll() { // Used callback to make our code asynchronous
-        // getProductsFromFile(cb);
-        return db.execute('SELECT * FROM products');
-    }
+    // static fetchAll() { // Used callback to make our code asynchronous
+    //     // getProductsFromFile(cb);
+    //     return db.execute('SELECT * FROM products');
+    // }
 
-    static findById(id) {
+    // static findById(id) {
         // getProductsFromFile(products =>{
         //     const product = products.find(p => p.id === id);
         //     cb(product);
         // })
-        return db.execute('SELECT * FROM products WHERE products.id = ?', [id])
-    }
+    //     return db.execute('SELECT * FROM products WHERE products.id = ?', [id])
+    // }
 
-    static deleteById(id) {
+    // static deleteById(id) {
         // getProductsFromFile(products => {
         //     // We want to keep all the items that are not equal to our selected product, this is the reason
         //     // we use "filter" instead of "findId"
@@ -93,5 +122,5 @@ module.exports = class Product {
         //         }
         //     })
         // })
-    }
-}
+//     }
+// }
