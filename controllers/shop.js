@@ -5,33 +5,17 @@ const Product = require('../models/product')
 const Cart = require ('../models/cart');
 
 exports.getProducts = (req, res, next) => {
-    // res.send("<h1>Hello from Express!</h1>");
-    // console.log("I'm a middleware");
-
-    // This will select the absolute path of our machine, we resolve this by importing the "path" module.
-    // "__dirname" selected our root folder.
-    // The join method will concatenate the different arguments, since this can we read by Linux and iOS.
-    
-    // console.log(adminData);
-    // res.sendFile(path.join(rootDir, "views", "shop.html"));
-
-    // const products = 
-    // Product.fetchAll((products) => { // Used an anonymous function as a callback
-    //     res.render('shop/product-list', {
-    //         prods: products,
-    //         pageTitle: 'All Products',
-    //         path: '/products',
-    //     });
-    // });
-    Product.fetchAll()
-        .then(([rows, fieldData]) => { 
+    Product.findAll()
+        .then(products => {
             res.render('shop/product-list', {
-                prods: rows,
-                pageTitle: 'All Products',
-                path: '/products',
-            });
+                prods: products,
+                pageTitle: 'All products',
+                path: '/products'  
+            })
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+        })
 }
 
 exports.getProduct = (req, res, next) => {
@@ -51,15 +35,17 @@ exports.getProduct = (req, res, next) => {
 
 
 exports.getIndex = (req, res, next) => {
-    Product.fetchAll()
-        .then(([rows, fieldData]) => { 
+    Product.findAll()
+        .then(products => {
             res.render('shop/index', {
-                prods: rows,
+                prods: products,
                 pageTitle: 'Shop',
-                path: '/',
-            });
+                path: '/'  
+            })
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+            console.log(err);
+        })
 }
 
 exports.getCart = (req, res, next) => {
